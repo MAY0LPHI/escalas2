@@ -2,7 +2,7 @@ import React from 'react';
 import { Calendar, ChevronLeft, ChevronRight, RefreshCw, Users } from 'lucide-react';
 import { formatDate } from '../utils/scheduleCalculator';
 
-const ScheduleView = ({ schedule, employees, selectedDate, onDateChange, onUpdateSchedule }) => {
+const ScheduleView = ({ schedule, employees, selectedDate, onDateChange }) => {
   const handlePreviousDay = () => {
     const newDate = new Date(selectedDate);
     newDate.setDate(newDate.getDate() - 1);

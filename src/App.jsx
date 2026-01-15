@@ -27,10 +27,11 @@ function App() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Load data from localStorage on mount
+  // Load data from localStorage on mount - legitimate use case for setting initial state
   useEffect(() => {
     const savedEmployees = loadFromStorage('employees');
     if (savedEmployees && savedEmployees.length > 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEmployees(savedEmployees);
     }
   }, []);
@@ -42,10 +43,11 @@ function App() {
     }
   }, [employees]);
 
-  // Auto-generate schedule when date or employees change
+  // Auto-generate schedule when date or employees change - computing derived state
   useEffect(() => {
     if (employees.length > 0) {
       const newSchedule = calculateSchedule(employees, selectedDate);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSchedule(newSchedule);
       saveToStorage('currentSchedule', newSchedule);
     }
@@ -88,7 +90,7 @@ function App() {
           if (data.employees) {
             setEmployees(data.employees);
           }
-        } catch (error) {
+        } catch {
           alert('Erro ao importar arquivo JSON');
         }
       };
@@ -221,10 +223,6 @@ function App() {
               employees={employees}
               selectedDate={selectedDate}
               onDateChange={setSelectedDate}
-              onUpdateSchedule={(newSchedule) => {
-                setSchedule(newSchedule);
-                saveToStorage('currentSchedule', newSchedule);
-              }}
             />
           )}
           
